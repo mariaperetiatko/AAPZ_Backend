@@ -41,14 +41,14 @@ namespace AAPZ_Backend.BusinessLogic.Ordering
             return true;
         }
 
-        public bool IsClientFree(int clientId, DateTime startTime, DateTime finishTime)
-        {
-            List<WorkplaceOrder> workplaceOrders = workplaceOrderDB.GetEntityList()
-                 .Where(t => t.ClientId == clientId).ToList();
-            var dict = workplaceOrders.Select(t => new { t.StartTime, t.FinishTime })
-                   .ToDictionary(t => t.StartTime, t => t.FinishTime)
-                   .OrderBy(t => t.Key);
-        }
+        //public bool IsClientFree(int clientId, DateTime startTime, DateTime finishTime)
+        //{
+        //    List<WorkplaceOrder> workplaceOrders = workplaceOrderDB.GetEntityList()
+        //         .Where(t => t.ClientId == clientId).ToList();
+        //    var dict = workplaceOrders.Select(t => new { t.StartTime, t.FinishTime })
+        //           .ToDictionary(t => t.StartTime, t => t.FinishTime)
+        //           .OrderBy(t => t.Key);
+        //}
 
 
     }
