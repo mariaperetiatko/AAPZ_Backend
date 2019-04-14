@@ -27,4 +27,8 @@
     <PackageReference Include="WebApiRouteDebugger" Version="1.0.0" />
   </ItemGroup>
 
+  <Target Name="PrePublishTarget" AfterTargets="Publish">
+  <Exec Command="dotnet ef database update" />
+</Target>
+
 </Project>
