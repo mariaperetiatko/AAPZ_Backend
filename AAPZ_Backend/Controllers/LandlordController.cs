@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend;
 using AAPZ_Backend.Repositories;
+using AAPZ_Backend.Models;
+
 
 namespace AAPZ_Backend.Controllers
 {

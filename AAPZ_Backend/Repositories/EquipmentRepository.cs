@@ -1,36 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace AAPZ_Backend.Repositories
 {
-    public class WorkplaceOrderRepository : IDBActions<WorkplaceOrder>
+    public class EquipmentRepository : IDBActions<Equipment>
     {
         private SheringDBContext sheringDBContext;
 
-        public WorkplaceOrderRepository()
+        public EquipmentRepository()
         {
             this.sheringDBContext = new SheringDBContext();
         }
 
-        public IEnumerable<WorkplaceOrder> GetEntityList()
+        public IEnumerable<Equipment> GetEntityList()
         {
-            return sheringDBContext.WorkplaceOrder;
+            return sheringDBContext.Equipment;
         }
 
-        public WorkplaceOrder GetEntity(object id)
+        public Equipment GetEntity(object id)
         {
-            return sheringDBContext.WorkplaceOrder.SingleOrDefault(x => x.Id == (int)id);
+            return sheringDBContext.Equipment.SingleOrDefault(x => x.Id == (int)id);
         }
 
-        public void Create(WorkplaceOrder workplaceOrder)
+        public void Create(Equipment equipment)
         {
-            Workplace workplace = sheringDBContext.Workplace.FirstOrDefault(e => e.Id == workplaceOrder.WorkplaceId);
-            
-            sheringDBContext.WorkplaceOrder.Add(workplaceOrder);
+            sheringDBContext.Equipment.Add(equipment);
         }
 
         //public Client GetClient(string tokenId)
@@ -39,16 +37,16 @@ namespace AAPZ_Backend.Repositories
         //    return client;
         //}
 
-        public void Update(WorkplaceOrder workplaceOrder)
+        public void Update(Equipment equipment)
         {
-            sheringDBContext.Entry(workplaceOrder).State = EntityState.Modified;
+            sheringDBContext.Entry(equipment).State = EntityState.Modified;
         }
 
         public void Delete(object id)
         {
-            WorkplaceOrder workplaceOrder = sheringDBContext.WorkplaceOrder.Find(id);
-            if (workplaceOrder != null)
-                sheringDBContext.WorkplaceOrder.Remove(workplaceOrder);
+            Equipment equipment = sheringDBContext.Equipment.Find(id);
+            if (equipment != null)
+                sheringDBContext.Equipment.Remove(equipment);
         }
 
         public void Save()
@@ -77,3 +75,4 @@ namespace AAPZ_Backend.Repositories
         }
     }
 }
+

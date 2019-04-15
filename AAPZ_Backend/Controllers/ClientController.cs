@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend;
 using AAPZ_Backend.Repositories;
+using AAPZ_Backend.Models;
+
 
 namespace AAPZ_Backend.Controllers
 {
@@ -14,11 +16,11 @@ namespace AAPZ_Backend.Controllers
     [Route("api/Client")]
     public class ClientController : Controller
     {
-        IDBActions<Client> clientDB;
+        ClientRepository clientDB;
 
-        public ClientController()
+        public ClientController(ClientRepository repository)
         {
-            clientDB = new ClientRepository();
+            clientDB = repository;
         }
 
         // GET: api/<controller>
@@ -47,7 +49,6 @@ namespace AAPZ_Backend.Controllers
                 return BadRequest();
             }
             clientDB.Create(client);
-            clientDB.Save();
             return Ok(client);
         }
 
@@ -60,7 +61,6 @@ namespace AAPZ_Backend.Controllers
                 return BadRequest();
             }
             clientDB.Update(client);
-            clientDB.Save();
             return Ok(client);
         }
 
@@ -75,7 +75,6 @@ namespace AAPZ_Backend.Controllers
                 return NotFound();
             }
             clientDB.Delete(id);
-            clientDB.Save();
             return Ok(client);
         }
     }

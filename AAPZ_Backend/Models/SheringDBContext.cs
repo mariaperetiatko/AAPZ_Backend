@@ -23,6 +23,8 @@ namespace AAPZ_Backend
         public virtual DbSet<Workplace> Workplace { get; set; }
         public virtual DbSet<WorkplaceOrder> WorkplaceOrder { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Equipment> Equipment { get; set; }
+        public virtual DbSet<WorkplaceEquipment> WorkplaceEquipment { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

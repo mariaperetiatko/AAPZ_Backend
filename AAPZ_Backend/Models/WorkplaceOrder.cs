@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AAPZ_Backend
+namespace AAPZ_Backend.Models
 {
     public partial class WorkplaceOrder
     {

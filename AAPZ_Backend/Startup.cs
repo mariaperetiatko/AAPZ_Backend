@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using AutoMapper;
+using AAPZ_Backend.Repositories;
 using FluentValidation.AspNetCore;
 using AAPZ_Backend.Auth;
 using Microsoft.AspNetCore.Diagnostics;
@@ -66,6 +67,20 @@ namespace AAPZ_Backend
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<SheringDBContext>();
 
+            services.AddSwaggerGen(c =>
+            {
+                // c.SwaggerDoc(.....
+
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme()
+                {
+                    Description = "Authorization header using the Bearer scheme",
+                    Name = "Authorization",
+                    In = "header"
+                });
+
+                c.DocumentFilter<SwaggerSecurityRequirementsDocumentFilter>();
+            });
+
             services.AddSingleton<IJwtFactory, JwtFactory>();
 
             services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
@@ -95,6 +110,10 @@ namespace AAPZ_Backend
                 ValidateLifetime = true,
                 ClockSkew = TimeSpan.Zero
             };
+
+            services.AddTransient<ClientRepository>();
+            // добавление кэширования
+            services.AddMemoryCache();
 
             services.AddAuthentication(options =>
             {
@@ -174,6 +193,7 @@ namespace AAPZ_Backend
 
             app.UseSwagger();
             app.UseDeveloperExceptionPage();
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

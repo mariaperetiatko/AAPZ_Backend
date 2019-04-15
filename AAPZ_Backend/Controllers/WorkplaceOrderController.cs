@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend;
 using AAPZ_Backend.Repositories;
+using AAPZ_Backend.BusinessLogic.Ordering;
+using AAPZ_Backend.Models;
+
 
 namespace AAPZ_Backend.Controllers
 {
@@ -15,10 +18,11 @@ namespace AAPZ_Backend.Controllers
     public class WorkplaceOrderController : Controller
     {
         IDBActions<WorkplaceOrder> WorkplaceOrderDB;
-
-        public WorkplaceOrderController()
+        OrderWorkplace OrderWorkplace;
+        public WorkplaceOrderController(ClientRepository clientRepository)
         {
             WorkplaceOrderDB = new WorkplaceOrderRepository();
+            OrderWorkplace = new OrderWorkplace(clientRepository);
         }
 
         // GET: api/<controller>
@@ -46,9 +50,23 @@ namespace AAPZ_Backend.Controllers
             {
                 return BadRequest();
             }
-            WorkplaceOrderDB.Create(WorkplaceOrder);
-            WorkplaceOrderDB.Save();
-            return Ok(WorkplaceOrder);
+
+            
+            if(OrderWorkplace.isFree(WorkplaceOrder.ClientId, WorkplaceOrder.WorkplaceId,
+                WorkplaceOrder.StartTime, WorkplaceOrder.FinishTime))
+            {
+                WorkplaceOrder.SumToPay = (int)OrderWorkplace.CreateOrder(WorkplaceOrder.ClientId, WorkplaceOrder.WorkplaceId,
+                WorkplaceOrder.StartTime, WorkplaceOrder.FinishTime);
+
+                WorkplaceOrderDB.Create(WorkplaceOrder);
+                WorkplaceOrderDB.Save();
+                WorkplaceOrder.Client =null;
+                WorkplaceOrder.Workplace = null;
+
+                return Ok(WorkplaceOrder);
+
+            }
+            return Ok("Busy");
         }
 
         // PUT api/<controller>

@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend;
 using AAPZ_Backend.Repositories;
-
+using AAPZ_Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AAPZ_Backend.Controllers
 {
@@ -22,6 +23,7 @@ namespace AAPZ_Backend.Controllers
             BuildingDB = new BuildingRepository();
         }
 
+        //[Authorize(Roles = "Admin")]
         // GET: api/<controller>
         [HttpGet("GetBuildingsList")]
         public IEnumerable<Building> GetBuildingsList()

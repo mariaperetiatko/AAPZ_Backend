@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AAPZ_Backend.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AAPZ_Backend;
 using AAPZ_Backend.Repositories;
 
-namespace AAPZ_Backend.Auth
+namespace AAPZ_Backend.Controllers
 {
     [Produces("application/json")]
     [Route("api/Workplace")]

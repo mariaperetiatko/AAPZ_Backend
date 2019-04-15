@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using AAPZ_Backend.Models;
-namespace AAPZ_Backend
+
+namespace AAPZ_Backend.Models
 {
     public partial class Client
     {
